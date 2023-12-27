@@ -1,7 +1,7 @@
 const { response, request } = require("express");
 //Importación del modelo
-const Factura = require("../models/factura");
-const usuario = require("../models/usuario");
+const Factura = require("../models/invoice");
+const usuario = require("../models/user");
 
 const getFacturas = async (req = request, res = response) => {
   //condiciones del get

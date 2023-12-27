@@ -6,9 +6,9 @@ const { getCategorias, getCategoriaPorID, postCategoria, putCategoria, deleteCat
 const { existeCategoriaPorId } = require('../helpers/db-validators');
 
 // Middlewares
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { esAdminRole } = require('../middlewares/validar-roles');
+const { validarCampos } = require('../middlewares/validate-fields');
+const { validarJWT } = require('../middlewares/validate-jwt');
+const { esAdminRole } = require('../middlewares/validate-rols');
 
 
 const router = Router();

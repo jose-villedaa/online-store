@@ -2,9 +2,9 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 
 // Middlewares
-const { validarCampos } = require('../middlewares/validar-campos');
-const { validarJWT } = require('../middlewares/validar-jwt');
-const { tieneRole, esAdminRole } = require('../middlewares/validar-roles');
+const { validarCampos } = require('../middlewares/validate-fields');
+const { validarJWT } = require('../middlewares/validate-jwt');
+const { tieneRole, esAdminRole } = require('../middlewares/validate-rols');
 
 //Controllers
 const { postProducto, putProducto, deleteProducto, getProductos, getProductoPorId, getVentas, getProductosMasvendidos, getProductosAgotados } = require('../controllers/producto');

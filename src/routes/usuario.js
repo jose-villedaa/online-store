@@ -1,98 +1,99 @@
-//Importaciones
-const { Router } = require("express");
-const { check } = require("express-validator");
+// Importaciones
+const { Router } = require('express');
+const { check } = require('express-validator');
 const {
   getUsuarios,
   postUsuario,
   putUsuario,
   deleteUsuario,
-  putAdmin
-} = require("../controllers/usuario");
+  putAdmin,
+} = require('../controllers/user');
 const {
   esRoleValido,
   emailExiste,
   existeUsuarioPorId,
-} = require("../helpers/db-validators");
-const { validarCampos } = require("../middlewares/validar-campos");
-const { validarJWT } = require("../middlewares/validar-jwt");
-const { esAdminRole } = require("../middlewares/validar-roles");
+} = require('../helpers/db-validators');
+const { validarCampos } = require('../middlewares/validate-fields');
+const { validarJWT } = require('../middlewares/validate-jwt');
+const { esAdminRole } = require('../middlewares/validate-rols');
+
 const router = Router();
 
-router.get("/mostrar", getUsuarios);
+router.get('/mostrar', getUsuarios);
 
 router.post(
-  "/agregarAdmin",
+  '/agregarAdmin',
   [
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("password", "El password debe de ser más de 6 digitos").isLength({
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('password', 'El password debe de ser más de 6 digitos').isLength({
       min: 6,
     }),
-    check("correo", "El correo no es valido").isEmail(),
-    check("correo").custom(emailExiste),
-    check("rol").default("ADMIN_ROLE").custom(esRoleValido),
+    check('correo', 'El correo no es valido').isEmail(),
+    check('correo').custom(emailExiste),
+    check('rol').default('ADMIN_ROLE').custom(esRoleValido),
     validarCampos,
   ],
-  postUsuario
+  postUsuario,
 );
 
 router.post(
-  "/agregarUser",
+  '/agregarUser',
   [
-    check("nombre", "El nombre es obligatorio").not().isEmpty(),
-    check("password", "El password debe de ser más de 6 digitos").isLength({
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    check('password', 'El password debe de ser más de 6 digitos').isLength({
       min: 6,
     }),
-    check("correo", "El correo no es valido").isEmail(),
-    check("correo").custom(emailExiste),
-    check("rol").default("USER_ROLE").custom(esRoleValido),
+    check('correo', 'El correo no es valido').isEmail(),
+    check('correo').custom(emailExiste),
+    check('rol').default('USER_ROLE').custom(esRoleValido),
     validarCampos,
   ],
-  postUsuario
+  postUsuario,
 );
 
 router.put(
-    "/editarAdmin/",
-    [
-      validarJWT,
-      esAdminRole,
-      validarCampos,
-    ],
-    putAdmin
-  );
+  '/editarAdmin/',
+  [
+    validarJWT,
+    esAdminRole,
+    validarCampos,
+  ],
+  putAdmin,
+);
 
-  router.put(
-    "/editarUser/:id",
-    [
-      validarJWT,
-      check("id", "No es un ID valido").isMongoId(),
-      check("id").custom(existeUsuarioPorId),
-      validarCampos,
-    ],
-    putUsuario
-  );
+router.put(
+  '/editarUser/:id',
+  [
+    validarJWT,
+    check('id', 'No es un ID valido').isMongoId(),
+    check('id').custom(existeUsuarioPorId),
+    validarCampos,
+  ],
+  putUsuario,
+);
 
-  router.delete(
-    "/eliminarAdmin/:id",
-    [
-      validarJWT,
-      check("id", "No es un ID válido").isMongoId(),
-      check("id").custom(existeUsuarioPorId),
-      validarCampos,
-      esAdminRole,
-    ],
-    deleteUsuario
-  );
+router.delete(
+  '/eliminarAdmin/:id',
+  [
+    validarJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom(existeUsuarioPorId),
+    validarCampos,
+    esAdminRole,
+  ],
+  deleteUsuario,
+);
 
-  router.delete(
-    "/eliminarUser/:id",
-    [
-      validarJWT,
-      check("id", "No es un ID válido").isMongoId(),
-      check("id").custom(existeUsuarioPorId),
-      validarCampos,
-    ],
-    deleteUsuario
-  );
+router.delete(
+  '/eliminarUser/:id',
+  [
+    validarJWT,
+    check('id', 'No es un ID válido').isMongoId(),
+    check('id').custom(existeUsuarioPorId),
+    validarCampos,
+  ],
+  deleteUsuario,
+);
 
 module.exports = router;
 

@@ -1,5 +1,5 @@
 const { request, response, json } = require("express");
-const Producto = require("../models/producto");
+const Producto = require("../models/product");
 
 const getProductos = async (req = request, res = response) => {
   //condiciones del get

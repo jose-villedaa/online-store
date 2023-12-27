@@ -1,7 +1,7 @@
 const Role = require('../models/role');
-const Usuario = require('../models/usuario');
-const Categoria = require('../models/categoria');
-const Producto = require('../models/producto');
+const Usuario = require('../models/user');
+const Categoria = require('../models/category');
+const Producto = require('../models/product');
 
 //Este archivo maneja validaciones personalizadas
 

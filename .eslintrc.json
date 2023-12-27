@@ -5,7 +5,6 @@
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
     "eslint:recommended",
     "prettier",
     "airbnb",
@@ -19,9 +18,12 @@
     }
   ],
   "parserOptions": {
-    "ecmaVersion": "latest",
+    "ecmaVersion": 2022,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": false
+    }
   },
   "settings": {
     "import/resolver": {
@@ -33,6 +35,9 @@
           ["@middlewares", "./src/middlewares"],
           ["@helpers", "./src/helpers"]
         ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      },
+      "node": {
         "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
       }
     }
@@ -47,6 +52,9 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "import/no-import-module-exports": "off",
+    "@typescript-eslint/no-explicit-any": "error"
   }
 }

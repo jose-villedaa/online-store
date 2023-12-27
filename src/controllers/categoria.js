@@ -1,6 +1,6 @@
 const { request, response } = require("express");
-const Categoria = require("../models/categoria");
-const Producto = require("../models/producto");
+const Categoria = require("../models/category");
+const Producto = require("../models/product");
 
 const getCategorias = async (req = request, res = response) => {
   //condiciones del get
