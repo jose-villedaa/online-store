@@ -37,16 +37,10 @@ class Server {
         await dbConection();
     }
 
-    //Un middleware es una función que se ejecuta antes de las rutas
     middlewares() {
 
-        // CORS
         this.app.use(cors());
-
-        // Lectura y parseo del Body
         this.app.use(express.json());
-
-        //Directorio publico
         this.app.use(express.static('public'));
 
     }
@@ -71,7 +65,5 @@ class Server {
 
 
 }
-
-
 //Importamos la clase Server
 module.exports = Server;
