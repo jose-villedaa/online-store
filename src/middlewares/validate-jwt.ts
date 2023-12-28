@@ -28,7 +28,13 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
   }
 
   try {
-    const { uid } = verifyToken(token, secretKey);
+    const decoded = verifyToken(token, secretKey);
+
+    if (typeof decoded !== 'object' || !('uid' in decoded)) {
+      return res.status(401).json({ msg: 'Invalid token' });
+    }
+
+    const { uid } = decoded;
 
     const user = await User.findById(uid);
 

@@ -1,5 +1,5 @@
 import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
-import User from '@models/user';
+import User from '@models/user.model';
 import { hashSync, genSaltSync } from 'bcryptjs';
 
 const getUsuarios = async (res: ExpressResponse) => {
@@ -94,7 +94,7 @@ const deleteUser = async (req: ExpressRequest, res: ExpressResponse) => {
   const usuarioEliminado = await User.findByIdAndUpdate(id, { state: false });
 
   res.json({
-    msg: 'DELETE eliminar user',
+    msg: 'Delete API - Delete User',
     usuarioEliminado,
   });
 };
