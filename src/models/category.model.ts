@@ -1,27 +1,27 @@
 import { Schema, model } from 'mongoose';
 
-const CategoriaSchema: Schema = new Schema({
-  nombre: {
+const CategorySchema: Schema = new Schema({
+  name: {
     type: String,
-    required: [true, 'El nombre de la cateogira es obligatorio'],
+    required: [true, 'The name of the category is mandatory'],
     unique: true,
   },
-  estado: {
+  state: {
     type: Boolean,
     default: true,
     required: true,
   },
-  usuario: {
+  user: {
     type: Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'User',
     required: true,
   },
-  producto: {
+  product: {
     type: Schema.Types.ObjectId,
-    ref: 'Producto',
+    ref: 'Product',
   },
 });
 
-const CategoryModel = model('Category', CategoriaSchema);
+const CategoryModel = model('Category', CategorySchema);
 
 export default CategoryModel;

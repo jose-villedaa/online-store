@@ -104,12 +104,12 @@ const deleteProduct = async (req: Request, res: Response) => {
   });
 };
 
-module.exports = {
-  postProduct,
-  putProduct,
-  deleteProduct,
+export {
   getProducts,
   getProductById,
   getBestSellingProducts,
   getSoldOutProducts,
+  postProduct,
+  putProduct,
+  deleteProduct,
 };

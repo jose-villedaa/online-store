@@ -33,7 +33,7 @@ const isAdmin = (req: RequestWithUser, res: Response, next: NextFunction) => {
   return next();
 };
 
-const tieneRole = (...roles: string[]) => (
+const hasRole = (...roles: string[]) => (
   req : RequestWithUser,
   res : Response,
   next: NextFunction,
@@ -53,7 +53,4 @@ const tieneRole = (...roles: string[]) => (
   return next();
 };
 
-module.exports = {
-  tieneRole,
-  isAdmin,
-};
+export default { isAdmin, hasRole };

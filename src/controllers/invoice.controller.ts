@@ -1,36 +1,36 @@
 import Invoice from '@models/invoice.model';
 import { Request, Response } from 'express';
 
-const getFacturas = async (req: Request, res: Response) => {
-  const query = { estado: true };
+const getInvoices = async (req: Request, res: Response) => {
+  const query = { status: true };
 
-  const listaFactura = await Promise.all([
+  const invoiceList = await Promise.all([
     Invoice.countDocuments(query),
     Invoice.find(query).populate('user', 'email').populate('cart'),
   ]);
 
   res.json({
-    msg: 'get Api - Controlador Usuario',
-    listaFactura,
+    msg: 'get Api - User Controller',
+    invoiceList,
   });
 };
 
-const getFacturaXCliente = async (req: Request, res: Response) => {
+const getInvoiceByClient = async (req: Request, res: Response) => {
   const userId = req.user.id;
-  const query = { estado: true, user: userId };
+  const query = { status: true, user: userId };
 
-  const listaFacturas = await Promise.all([
+  const invoiceList = await Promise.all([
     Invoice.countDocuments(query),
-    Invoice.find(query).populate('usuario', 'nombre').populate('carrito'),
+    Invoice.find(query).populate('user', 'name').populate('cart'),
   ]);
 
   res.json({
-    msg: 'Mis compras son estas',
-    listaFacturas,
+    msg: 'These are my purchases',
+    invoiceList,
   });
 };
 
-const postFactura = async (req: Request, res: Response) => {
+const postInvoice = async (req: Request, res: Response) => {
   const { user, ...body } = req.body;
 
   const date = Date.now();
@@ -41,15 +41,11 @@ const postFactura = async (req: Request, res: Response) => {
     user: req.user.id,
   };
 
-  const factura = new Invoice(data);
+  const invoice = new Invoice(data);
 
-  await factura.save();
+  await invoice.save();
 
-  res.status(201).json(factura);
+  res.status(201).json(invoice);
 };
 
-module.exports = {
-  getFacturas,
-  postFactura,
-  getFacturaXCliente,
-};
+export { getInvoices, getInvoiceByClient, postInvoice };

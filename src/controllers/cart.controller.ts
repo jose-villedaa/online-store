@@ -63,7 +63,7 @@ const putCart = async (req: Request, res: Response) => {
   return res.status(201).json(editedCart);
 };
 
-module.exports = {
+export {
   getCart,
   postCart,
   putCart,

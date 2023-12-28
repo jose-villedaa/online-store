@@ -1,7 +1,7 @@
-import Product from '@models/product';
-import Role from '@models/rol';
-import User from '@models/user';
-import Category from '@models/category';
+import Product from '@models/product.model';
+import Role from '@models/rol.model';
+import User from '@models/user.model';
+import Category from '@models/category.model';
 
 const isValidRole = async (role = '') => {
   const existingRole = await Role.findOne({ role });
@@ -43,7 +43,7 @@ const productExistsById = async (id: string) => {
   }
 };
 
-module.exports = {
+export {
   isValidRole,
   emailExists,
   userExistsById,

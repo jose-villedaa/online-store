@@ -62,7 +62,7 @@ const putCategory = async (req: Request, res: Response) => {
   res.status(201).json(editedCategory);
 };
 
-const deleteCategoryTest = async (req: Request, res: Response) => {
+const deleteCategory = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   const defaultCategoryName = 'default category';
@@ -88,10 +88,10 @@ const deleteCategoryTest = async (req: Request, res: Response) => {
   return res.status(201).json(deletedCategory);
 };
 
-module.exports = {
+export {
   listCategories,
   getCategory,
   postCategory,
   putCategory,
-  deleteCategoryTest,
+  deleteCategory,
 };

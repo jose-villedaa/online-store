@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { Logger, ILogObj } from 'tslog';
-import User from '@models/user';
+import User from '@models/user.model';
 import { verify } from 'jsonwebtoken';
 
 const log: Logger<ILogObj> = new Logger();
@@ -14,7 +14,7 @@ const verifyToken = (token: string, secretKey: string) => {
   }
 };
 
-const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
+const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.header('x-token');
 
   if (!token) {
@@ -53,6 +53,4 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-module.exports = {
-  validarJWT,
-};
+export default validateJWT;

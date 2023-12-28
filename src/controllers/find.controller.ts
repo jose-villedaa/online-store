@@ -87,7 +87,8 @@ const search = (req: Request, res: Response) => {
   return true;
 };
 
-module.exports = {
+export {
   search,
   searchProductByCategory,
+  searchProducts,
 };

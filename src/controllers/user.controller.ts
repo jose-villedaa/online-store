@@ -2,38 +2,38 @@ import { Request as ExpressRequest, Response as ExpressResponse } from 'express'
 import User from '@models/user.model';
 import { hashSync, genSaltSync } from 'bcryptjs';
 
-const getUsuarios = async (res: ExpressResponse) => {
-  const query = { estado: true };
+const listUsers = async (res: ExpressResponse) => {
+  const query = { state: true };
 
-  const listUsers = await Promise.all([
+  const userList = await Promise.all([
     User.countDocuments(query),
     User.find(query),
   ]);
 
   res.json({
-    msg: 'Get Api - Get Users',
-    listUsersJSON: listUsers,
+    msg: 'Get API - Get Users',
+    userListJSON: userList,
   });
 };
 
 const addUser = async (req: ExpressRequest, res : ExpressResponse) => {
   try {
     const {
-      name, email, password, rol,
+      name, email, password, role,
     } = req.body;
 
-    const usuarioGuardadoDB = new User({
-      name, email, password, rol,
+    const userSavedDB = new User({
+      name, email, password, role,
     });
 
     const salt = genSaltSync();
-    usuarioGuardadoDB.password = hashSync(password, salt);
+    userSavedDB.password = hashSync(password, salt);
 
-    await usuarioGuardadoDB.save();
+    await userSavedDB.save();
 
     res.json({
-      msg: 'Post API - Post Usuario',
-      usuarioGuardadoDB,
+      msg: 'Post API - Post User',
+      userSavedDB,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -44,21 +44,21 @@ const editUser = async (req: ExpressRequest, res: ExpressResponse) => {
   try {
     const { id } = req.params;
     const {
-      userId, img, state, ...resto
+      userId, img, state, ...rest
     } = req.body;
-    if (resto.password) {
+    if (rest.password) {
       const salt = genSaltSync();
-      resto.password = hashSync(resto.password, salt);
+      rest.password = hashSync(rest.password, salt);
     }
 
-    const usuarioEditado = await User.findByIdAndUpdate(id, resto, { new: true });
+    const userEdited = await User.findByIdAndUpdate(id, rest, { new: true });
 
-    if (!usuarioEditado) {
+    if (!userEdited) {
       return res.status(404).json({ msg: 'User not found' });
     }
     return res.json({
       msg: 'Put API - Put User',
-      usuarioEditado,
+      userEdited,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -67,14 +67,14 @@ const editUser = async (req: ExpressRequest, res: ExpressResponse) => {
 
 const editAdmin = async (req: ExpressRequest, res: ExpressResponse) => {
   try {
-    const idUser = req.user.id;
-    const { userId, state, ...resto } = req.body;
-    if (resto.password) {
+    const userIdFromReq = req.user.id;
+    const { userId: userIdFromBody, state, ...rest } = req.body;
+    if (rest.password) {
       const salt = genSaltSync();
-      resto.password = hashSync(resto.password, salt);
+      rest.password = hashSync(rest.password, salt);
     }
 
-    const admin = await User.findByIdAndUpdate(idUser, resto, { new: true });
+    const admin = await User.findByIdAndUpdate(userIdFromReq, rest, { new: true });
 
     if (!admin) {
       return res.status(404).json({ msg: 'Admin not found' });
@@ -91,16 +91,16 @@ const editAdmin = async (req: ExpressRequest, res: ExpressResponse) => {
 const deleteUser = async (req: ExpressRequest, res: ExpressResponse) => {
   const { id } = req.params;
 
-  const usuarioEliminado = await User.findByIdAndUpdate(id, { state: false });
+  const userDeleted = await User.findByIdAndUpdate(id, { state: false });
 
   res.json({
     msg: 'Delete API - Delete User',
-    usuarioEliminado,
+    userDeleted,
   });
 };
 
-module.exports = {
-  getUsuarios,
+export {
+  listUsers,
   addUser,
   editUser,
   editAdmin,

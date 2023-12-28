@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-const Product = require('../models/product');
+const Product = require('../models/product.model');
 
 const validateProductAvailability = async (
   req: Request,
@@ -37,6 +37,4 @@ const validateProductAvailability = async (
   return next();
 };
 
-module.exports = {
-  validateProductAvailability,
-};
+export default validateProductAvailability;
