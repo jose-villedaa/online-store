@@ -1,0 +1,60 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "eslint:recommended",
+    "prettier",
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "plugins": ["@typescript-eslint", "import", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"]
+    }
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": false
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@routes", "./src/routes"],
+          ["@controllers", "./src/controllers"],
+          ["@models", "./src/models"],
+          ["@middlewares", "./src/middlewares"],
+          ["@helpers", "./src/helpers"]
+        ],
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      },
+      "node": {
+        "extensions": [".ts", ".tsx", ".js", ".jsx", ".json"]
+      }
+    }
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "@typescript-eslint/no-var-requires": "off",
+    "import/no-import-module-exports": "off",
+    "@typescript-eslint/no-explicit-any": "error"
+  }
+}

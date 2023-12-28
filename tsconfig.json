@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",                                
+    "rootDir": "./src",
+    "allowJs": true,                                  
+    "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+      "@routes/*": ["./src/routes/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@models/*": ["./src/models/*"],
+      "@middlewares/*": ["./src/middlewares/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@types/*": ["./src/types/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/@types"],   
+    "moduleResolution": "node",
+    "esModuleInterop": true,                         
+    "forceConsistentCasingInFileNames": true,                     
+    "skipLibCheck": true ,
+    "strictNullChecks": true                               
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
