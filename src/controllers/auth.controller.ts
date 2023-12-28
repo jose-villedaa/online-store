@@ -3,8 +3,7 @@ import { Logger, ILogObj } from 'tslog';
 import Invoice from '@models/invoice.model';
 import User from '@models/user.model';
 import bcrypt from 'bcryptjs';
-
-const generateJWT = require('../helpers/generate-jwt');
+import generateJWT from '@helpers/generate-jwt';
 
 const log: Logger<ILogObj> = new Logger();
 

@@ -24,6 +24,4 @@ const generateJWT = (uid = '') => new Promise((resolve, reject) => {
   });
 });
 
-module.exports = {
-  generateJWT,
-};
+export default generateJWT;
