@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",                                
+    "target": "ES5",
+    "module": "CommonJS",                                
     "rootDir": "./src",
     "allowJs": true,                                  
     "outDir": "build",

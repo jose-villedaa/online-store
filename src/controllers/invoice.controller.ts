@@ -1,6 +1,10 @@
 import Invoice from '@models/invoice.model';
 import { Request, Response } from 'express';
 
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
+
 const getInvoices = async (req: Request, res: Response) => {
   const query = { status: true };
 
@@ -15,7 +19,7 @@ const getInvoices = async (req: Request, res: Response) => {
   });
 };
 
-const getInvoiceByClient = async (req: Request, res: Response) => {
+const getInvoiceByClient = async (req: RequestWithUser, res: Response) => {
   const userId = req.user.id;
   const query = { status: true, user: userId };
 
@@ -30,7 +34,7 @@ const getInvoiceByClient = async (req: Request, res: Response) => {
   });
 };
 
-const postInvoice = async (req: Request, res: Response) => {
+const postInvoice = async (req: RequestWithUser, res: Response) => {
   const { user, ...body } = req.body;
 
   const date = Date.now();

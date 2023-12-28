@@ -1,13 +1,13 @@
 import Product from '@models/product.model';
-import Role from '@models/rol.model';
+import Rol from '@models/rol.model';
 import User from '@models/user.model';
 import Category from '@models/category.model';
 
-const isValidRole = async (role = '') => {
-  const existingRole = await Role.findOne({ role });
+const isValidRol = async (rol = '') => {
+  const existingRol = await Rol.findOne({ rol });
 
-  if (!existingRole) {
-    throw new Error(`The role ${role} is not registered in the DB`);
+  if (!existingRol) {
+    throw new Error(`The role ${rol} is not registered in the DB`);
   }
 };
 
@@ -44,7 +44,7 @@ const productExistsById = async (id: string) => {
 };
 
 export {
-  isValidRole,
+  isValidRol,
   emailExists,
   userExistsById,
   categoryExistsById,

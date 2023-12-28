@@ -3,6 +3,10 @@ import { Logger, ILogObj } from 'tslog';
 import User from '@models/user.model';
 import { verify } from 'jsonwebtoken';
 
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
+
 const log: Logger<ILogObj> = new Logger();
 
 const verifyToken = (token: string, secretKey: string) => {
@@ -14,7 +18,7 @@ const verifyToken = (token: string, secretKey: string) => {
   }
 };
 
-const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
+const validateJWT = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   const token = req.header('x-token');
 
   if (!token) {

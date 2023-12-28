@@ -12,7 +12,7 @@ import {
   editUser,
 } from '@controllers/user.controller';
 
-import { isValidRole, emailExists, userExistsById } from '@helpers/db-validators';
+import { isValidRol, emailExists, userExistsById } from '@helpers/db-validators';
 
 const router = Router();
 
@@ -26,7 +26,7 @@ function addUserMiddleware(role: undefined | string) {
     }),
     check('email', 'Email is not valid').isEmail(),
     check('email').custom(emailExists),
-    check('role').default(role).custom(isValidRole),
+    check('role').default(role).custom(isValidRol),
     validateFields,
   ];
 }

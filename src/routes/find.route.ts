@@ -17,4 +17,4 @@ router.get('/:coleccion/:termino/show', [
   validateFields,
 ], search);
 
-module.exports = router;
+export default router;

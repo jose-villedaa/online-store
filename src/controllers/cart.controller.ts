@@ -2,6 +2,10 @@ import Cart from '@models/cart.model';
 import { Request, Response } from 'express';
 import Product from '@models/product.model';
 
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
+
 const getCart = async (req: Request, res: Response) => {
   const query = { state: true };
 
@@ -17,7 +21,7 @@ const getCart = async (req: Request, res: Response) => {
   });
 };
 
-const postCart = async (req: Request, res: Response) => {
+const postCart = async (req: RequestWithUser, res: Response) => {
   const cart = req.body.cart.toUpperCase();
   const { products, quantity } = req.body;
 
@@ -50,7 +54,7 @@ const postCart = async (req: Request, res: Response) => {
   return res.status(201).json(carts);
 };
 
-const putCart = async (req: Request, res: Response) => {
+const putCart = async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
   const { state, user, ...rest } = req.body;
 

@@ -3,7 +3,7 @@ import { Logger, ILogObj } from 'tslog';
 
 const log: Logger<ILogObj> = new Logger();
 
-const dbConection = async () => {
+const dbConnection = async () => {
   try {
     set('strictQuery', false);
     const mongoDbUrl = process.env.MONGODB_CNN;
@@ -18,6 +18,4 @@ const dbConection = async () => {
   }
 };
 
-module.exports = {
-  dbConection,
-};
+export default dbConnection;

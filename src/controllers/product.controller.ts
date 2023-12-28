@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 
-const Product = require('../models/product.model');
+import Product from '@models/product.model';
+
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
 
 const getProducts = async (req: Request, res: Response) => {
   const query = { available: true };
@@ -47,7 +51,7 @@ const getSoldOutProducts = async (req: Request, res: Response) => {
   });
 };
 
-const postProduct = async (req: Request, res: Response) => {
+const postProduct = async (req: RequestWithUser, res: Response) => {
   const { available, user, ...body } = req.body;
 
   const productDB = await Product.findOne({ name: body.name });
@@ -71,7 +75,7 @@ const postProduct = async (req: Request, res: Response) => {
   return res.status(201).json(product);
 };
 
-const putProduct = async (req: Request, res: Response) => {
+const putProduct = async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
   const { available, user, ...restData } = req.body;
 

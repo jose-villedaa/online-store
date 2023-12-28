@@ -1,8 +1,12 @@
-import { Request as ExpressRequest, Response as ExpressResponse } from 'express';
+import { Request, Response as ExpressResponse } from 'express';
 import User from '@models/user.model';
 import { hashSync, genSaltSync } from 'bcryptjs';
 
-const listUsers = async (res: ExpressResponse) => {
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
+
+const listUsers = async (req: Request, res: ExpressResponse) => {
   const query = { state: true };
 
   const userList = await Promise.all([
@@ -10,20 +14,20 @@ const listUsers = async (res: ExpressResponse) => {
     User.find(query),
   ]);
 
-  res.json({
+  return res.json({
     msg: 'Get API - Get Users',
     userListJSON: userList,
   });
 };
 
-const addUser = async (req: ExpressRequest, res : ExpressResponse) => {
+const addUser = async (req: Request, res : ExpressResponse) => {
   try {
     const {
-      name, email, password, role,
+      name, email, password, rol,
     } = req.body;
 
     const userSavedDB = new User({
-      name, email, password, role,
+      name, email, password, rol,
     });
 
     const salt = genSaltSync();
@@ -40,7 +44,7 @@ const addUser = async (req: ExpressRequest, res : ExpressResponse) => {
   }
 };
 
-const editUser = async (req: ExpressRequest, res: ExpressResponse) => {
+const editUser = async (req: Request, res: ExpressResponse) => {
   try {
     const { id } = req.params;
     const {
@@ -65,7 +69,7 @@ const editUser = async (req: ExpressRequest, res: ExpressResponse) => {
   }
 };
 
-const editAdmin = async (req: ExpressRequest, res: ExpressResponse) => {
+const editAdmin = async (req: RequestWithUser, res: ExpressResponse) => {
   try {
     const userIdFromReq = req.user.id;
     const { userId: userIdFromBody, state, ...rest } = req.body;
@@ -88,7 +92,7 @@ const editAdmin = async (req: ExpressRequest, res: ExpressResponse) => {
   }
 };
 
-const deleteUser = async (req: ExpressRequest, res: ExpressResponse) => {
+const deleteUser = async (req: Request, res: ExpressResponse) => {
   const { id } = req.params;
 
   const userDeleted = await User.findByIdAndUpdate(id, { state: false });

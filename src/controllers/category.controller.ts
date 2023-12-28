@@ -2,6 +2,10 @@ import Category from '@models/category.model';
 import Product from '@models/product.model';
 import { Request, Response } from 'express';
 
+interface RequestWithUser extends Request {
+  user: { id: string };
+}
+
 const listCategories = async (req: Request, res: Response) => {
   const query = { state: true };
 
@@ -26,7 +30,7 @@ const getCategory = async (req: Request, res: Response) => {
   res.status(201).json(categoryById);
 };
 
-const postCategory = async (req: Request, res: Response) => {
+const postCategory = async (req: RequestWithUser, res: Response) => {
   const name = req.body.nombre.toUpperCase();
 
   const categoryDB = await Category.findOne({ name });
@@ -48,7 +52,7 @@ const postCategory = async (req: Request, res: Response) => {
   return res.status(201).json(category);
 };
 
-const putCategory = async (req: Request, res: Response) => {
+const putCategory = async (req: RequestWithUser, res: Response) => {
   const { id } = req.params;
   const { state, user, ...rest } = req.body;
 
